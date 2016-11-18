@@ -24,14 +24,10 @@
             android:orientation="vertical"
             android:padding="@dimen/padding_large">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CARD EXPIRY"
-
-                />
-
+                android:text="EXPIRATION"/>
 
             <EditText
                 android:id="@+id/card_expiry"

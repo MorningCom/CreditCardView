@@ -25,14 +25,10 @@
             android:orientation="vertical"
             android:padding="@dimen/padding_large">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CVV"
-
-                />
-
+                android:text="Code de sécurité"/>
 
             <EditText
                 android:id="@+id/card_cvv"
@@ -42,9 +38,7 @@
                 android:hint="XXX"
                 android:inputType="number"
                 android:maxLength="3"
-                android:text=""
-
-                />
+                android:text=""/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -25,24 +25,20 @@ public class CardNumberFragment extends  CreditCardFragment {
 
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle state) {
 
         View v = inflater.inflate(R.layout.lyt_card_number, group, false);
         mCardNumberView = (EditText) v.findViewById(R.id.card_number_field);
-
         String number = "";
-
         if(getArguments() != null && getArguments().containsKey(EXTRA_CARD_NUMBER)) {
             number = getArguments().getString(EXTRA_CARD_NUMBER);
         }
-
         if(number == null) {
             number = "";
         }
-
         mCardNumberView.setText(number);
         mCardNumberView.addTextChangedListener(this);
-
         return v;
     }
 
@@ -59,7 +55,6 @@ public class CardNumberFragment extends  CreditCardFragment {
         mCardNumberView.removeTextChangedListener(this);
         mCardNumberView.setText(cardNumber);
         mCardNumberView.setSelection(cardNumber.length() > MAX_LENGTH_CARD_NUMBER_WITH_SPACES ? MAX_LENGTH_CARD_NUMBER_WITH_SPACES : cardNumber.length());
-        mCardNumberView.addTextChangedListener(this);
 
         if(modifiedLength <= previousLength && cursorPosition < modifiedLength) {
             mCardNumberView.setSelection(cursorPosition);
@@ -67,10 +62,10 @@ public class CardNumberFragment extends  CreditCardFragment {
 
         onEdit(cardNumber);
 
-
         if(cardNumber.replace(CreditCardUtils.SPACE_SEPERATOR,"").length() == MAX_LENGTH_CARD_NUMBER) {
             onComplete();
         }
+        mCardNumberView.addTextChangedListener(this);
     }
 
     @Override

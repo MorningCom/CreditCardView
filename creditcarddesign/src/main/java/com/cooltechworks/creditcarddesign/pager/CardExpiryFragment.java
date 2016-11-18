@@ -27,11 +27,10 @@ public class CardExpiryFragment extends CreditCardFragment {
 
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle state) {
-
         View v = inflater.inflate(R.layout.lyt_card_expiry, group, false);
         cardExpiryView = (EditText) v.findViewById(R.id.card_expiry);
-
         String expiry = "";
 
         Bundle args = getArguments();
@@ -130,19 +129,23 @@ public class CardExpiryFragment extends CreditCardFragment {
 
     @Override
     public void focus() {
-
         if(isAdded()) {
+            if (cardExpiryView == null) {
+                cardExpiryView = (EditText) getView().findViewById(R.id.card_expiry);
+            }
             cardExpiryView.selectAll();
         }
     }
 
 
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
         outState.putBoolean(EXTRA_VALIDATE_EXPIRY_DATE, mValidateCard);
         super.onSaveInstanceState(outState);
     }
 
+    @Override
     public void onActivityCreated(Bundle instate) {
 
         if(instate != null) {

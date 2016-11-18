@@ -40,10 +40,7 @@
         android:layout_width="@dimen/center_image_width"
         android:layout_height="@dimen/center_image_height"
         android:layout_centerInParent="true"
-        tools:src="@drawable/img_amex_center_face"
-
-
-        />
+        tools:src="@drawable/img_amex_center_face"/>
 
 
 </RelativeLayout>

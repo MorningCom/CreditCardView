@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import com.cooltechworks.creditcarddesign.R;
 
-import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_CVV;
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_HOLDER_NAME;
 /**
  * Created by sharish on 9/1/15.
@@ -23,6 +22,7 @@ public class CardNameFragment extends CreditCardFragment {
 
     }
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle state) {
 
         View v = inflater.inflate(R.layout.lyt_card_holder_name, group,false);
@@ -40,7 +40,6 @@ public class CardNameFragment extends CreditCardFragment {
 
         mCardNameView.setText(name);
         mCardNameView.addTextChangedListener(this);
-
         return v;
     }
 
@@ -48,7 +47,7 @@ public class CardNameFragment extends CreditCardFragment {
     public void afterTextChanged(Editable s) {
 
         onEdit(s.toString());
-        if(s.length() == 16) {
+        if(s.length() == 22) {
             onComplete();
         }
     }

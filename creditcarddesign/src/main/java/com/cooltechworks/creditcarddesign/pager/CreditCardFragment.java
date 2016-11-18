@@ -16,29 +16,23 @@ public abstract  class CreditCardFragment extends Fragment implements TextWatche
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
 
     public void onEdit(String edit) {
-
         if(mActionListener != null) {
             mActionListener.onEdit(this,edit);
         }
-
     }
 
     public void onComplete() {
-
         if(mActionListener != null) {
             mActionListener.onActionComplete(this);
         }
-
     }
 
 }

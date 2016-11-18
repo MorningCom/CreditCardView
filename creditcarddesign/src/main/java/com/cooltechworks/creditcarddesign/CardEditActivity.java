@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -17,12 +18,11 @@ import android.widget.TextView;
 import com.cooltechworks.creditcarddesign.pager.CardFragmentAdapter;
 import com.cooltechworks.creditcarddesign.pager.CardFragmentAdapter.ICardEntryCompleteListener;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_CVV;
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_EXPIRY;
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_HOLDER_NAME;
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.*;
-
-
 
 public class CardEditActivity extends AppCompatActivity {
 
@@ -39,6 +39,9 @@ public class CardEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!BuildConfig.DEBUG) {
+            getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
+        }
         setContentView(R.layout.activity_card_edit);
 
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
@@ -92,7 +95,6 @@ public class CardEditActivity extends AppCompatActivity {
         mCardNumber = bundle.getString(EXTRA_CARD_NUMBER);
 
 
-
         mCreditCardView.setCVV(mCVV);
         mCreditCardView.setCardHolderName(mCardHolderName);
         mCreditCardView.setCardExpiry(mExpiry);
@@ -113,11 +115,24 @@ public class CardEditActivity extends AppCompatActivity {
 
         int text = R.string.next;
 
+        TextView button = (TextView) findViewById(R.id.next);
         if(pager.getCurrentItem() == max -1) {
             text = R.string.done;
+            if (isCardComplete()) {
+                button.setEnabled(true);
+            } else {
+                button.setEnabled(false);
+            }
+        } else {
+            button.setEnabled(true);
         }
 
-        ((TextView)findViewById(R.id.next)).setText(text);
+        button.setText(text);
+
+    }
+
+    private boolean isCardComplete() {
+        return !TextUtils.isEmpty(mCardNumber) && !TextUtils.isEmpty(mCVV) && !TextUtils.isEmpty(mExpiry);
     }
 
     public void loadPager() {
@@ -182,13 +197,9 @@ public class CardEditActivity extends AppCompatActivity {
         });
 
         pager.setAdapter(mCardAdapter);
-
-        int cardSide = getIntent().getIntExtra(CreditCardUtils.EXTRA_CARD_SHOW_CARD_SIDE, CreditCardUtils.CARD_SIDE_FRONT);
-        if(cardSide == CreditCardUtils.CARD_SIDE_BACK) {
-           pager.setCurrentItem(2);
-        }
     }
 
+    @Override
     public void onSaveInstanceState(Bundle outState) {
 
         outState.putString(EXTRA_CARD_CVV,mCVV);
@@ -200,6 +211,7 @@ public class CardEditActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
     public void onRestoreInstanceState(Bundle inState) {
         super.onRestoreInstanceState(inState);
         checkParams(inState);

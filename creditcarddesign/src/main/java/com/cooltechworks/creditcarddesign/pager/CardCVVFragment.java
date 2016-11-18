@@ -10,7 +10,6 @@ import android.widget.EditText;
 import com.cooltechworks.creditcarddesign.R;
 
 import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_CVV;
-import static com.cooltechworks.creditcarddesign.CreditCardUtils.EXTRA_CARD_EXPIRY;
 
 /**
  * Created by sharish on 9/1/15.
@@ -24,11 +23,11 @@ public class CardCVVFragment extends CreditCardFragment  {
     }
 
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle state) {
 
         View v = inflater.inflate(R.layout.lyt_card_cvv, group,false);
         mCardCVVView = (EditText) v.findViewById(R.id.card_cvv);
-
         String cvv = "";
         if(getArguments() != null && getArguments().containsKey(EXTRA_CARD_CVV)) {
             cvv = getArguments().getString(EXTRA_CARD_CVV);
@@ -40,7 +39,6 @@ public class CardCVVFragment extends CreditCardFragment  {
 
         mCardCVVView.setText(cvv);
         mCardCVVView.addTextChangedListener(this);
-
         return v;
     }
 
