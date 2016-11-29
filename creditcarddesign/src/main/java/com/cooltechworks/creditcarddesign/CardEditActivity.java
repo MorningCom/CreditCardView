@@ -120,12 +120,10 @@ public class CardEditActivity extends AppCompatActivity {
     }
 
     protected @StringRes int getNextButtonTextRes(int max, int currentItem) {
-        int text = R.string.next;
-
         if(currentItem == max -1) {
-            text = R.string.done;
+            return R.string.done;
         }
-        return text;
+        return R.string.next;
     }
 
     ViewPager getViewPager() {
@@ -295,7 +293,7 @@ public class CardEditActivity extends AppCompatActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-    
+
     @Override
     public void onBackPressed() {
         this.finish();
