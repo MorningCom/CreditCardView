@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -111,14 +112,20 @@ public class CardEditActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.card_field_container_pager);
 
         int max = pager.getAdapter().getCount();
+        int currentItem = pager.getCurrentItem();
 
-        int text = R.string.next;
-
-        if(pager.getCurrentItem() == max -1) {
-            text = R.string.done;
-        }
+        int text = getNextButtonTextRes(max, currentItem);
 
         ((TextView)findViewById(R.id.next)).setText(text);
+    }
+
+    protected @StringRes int getNextButtonTextRes(int max, int currentItem) {
+        int text = R.string.next;
+
+        if(currentItem == max -1) {
+            text = R.string.done;
+        }
+        return text;
     }
 
     ViewPager getViewPager() {
