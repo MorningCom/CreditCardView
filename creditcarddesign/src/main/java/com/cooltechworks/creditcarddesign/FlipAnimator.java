@@ -119,20 +119,24 @@ public class FlipAnimator extends Animation {
         	camera.translate( (float) (150.0 * Math.sin(radians)), 0.0f, 0.0f);
         }
 
-        if(rotationDirection == DIRECTION_Z) {
-        	camera.rotateZ(degrees);
-        }
-        else if(rotationDirection == DIRECTION_Y) {
-        	camera.rotateY(degrees);
-        }
-        else {
-        	camera.rotateX(degrees);
-        }
-        
+        rotateCamera(degrees, rotationDirection, camera);
+
         camera.getMatrix(matrix);
         camera.restore();
 
         matrix.preTranslate(-centerX, -centerY);
         matrix.postTranslate(centerX, centerY);
+    }
+
+    protected void rotateCamera(float degrees, int rotationDirection, Camera camera) {
+        if(rotationDirection == DIRECTION_Z) {
+        	camera.rotateZ(degrees);
+        }
+        else if(rotationDirection == DIRECTION_Y) {
+            camera.rotateY(degrees);
+        }
+        else {
+            camera.rotateX(degrees);
+        }
     }
 }
